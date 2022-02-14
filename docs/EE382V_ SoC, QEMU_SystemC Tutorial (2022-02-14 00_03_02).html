@@ -1,0 +1,698 @@
+<html xmlns:v=urn:schemas-microsoft-com:vml xmlns:o=urn:schemas-microsoft-com:office:office xmlns:w=urn:schemas-microsoft-com:office:word xmlns:m=http://schemas.microsoft.com/office/2004/12/omml xmlns=http://www.w3.org/TR/REC-html40 style><!--
+ Page saved with SingleFile 
+ url: http://users.ece.utexas.edu/~gerstl/ee382m_f18/labs/QEMU_SystemC_Tutorial.htm 
+ saved date: Tue Feb 15 2022 00:03:02 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 14">
+<meta name=Originator content="Microsoft Word 14">
+<link rel=File-List href=http://users.ece.utexas.edu/~gerstl/ee382m_f18/labs/QEMU_SystemC_Tutorial_files/filelist.xml>
+<link rel=Edit-Time-Data href=http://users.ece.utexas.edu/~gerstl/ee382m_f18/labs/QEMU_SystemC_Tutorial_files/editdata.mso>
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>EE382V: SoC, QEMU/SystemC Tutorial</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>A. Gerstlauer</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Andreas Gerstlauer</o:LastAuthor>
+  <o:Revision>27</o:Revision>
+  <o:TotalTime>2199</o:TotalTime>
+  <o:Created>2018-08-31T14:48:00Z</o:Created>
+  <o:LastSaved>2018-11-04T03:49:00Z</o:LastSaved>
+  <o:Pages>7</o:Pages>
+  <o:Words>2296</o:Words>
+  <o:Characters>15033</o:Characters>
+  <o:Lines>341</o:Lines>
+  <o:Paragraphs>225</o:Paragraphs>
+  <o:CharactersWithSpaces>17104</o:CharactersWithSpaces>
+  <o:Version>14.00</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<link rel=themeData href=http://users.ece.utexas.edu/~gerstl/ee382m_f18/labs/QEMU_SystemC_Tutorial_files/themedata.thmx>
+<link rel=colorSchemeMapping href=http://users.ece.utexas.edu/~gerstl/ee382m_f18/labs/QEMU_SystemC_Tutorial_files/colorschememapping.xml>
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:View>Print</w:View>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:TrackMoves/>
+  <w:TrackFormatting/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>EN-US</w:LidThemeOther>
+  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SplitPgBreakAndParaMark/>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
+  DefSemiHidden="false" DefQFormat="false" LatentStyleCount="267">
+  <w:LsdException Locked="false" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" Priority="99" Name="No List"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" QFormat="true"
+   Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" QFormat="true"
+   Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" QFormat="true"
+   Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" QFormat="true"
+   Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" QFormat="true"
+   Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" QFormat="true"
+   Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
+ </w:LatentStyles>
+</xml><![endif]-->
+<style><!--@font-face{font-family:Tahoma;panose-1:2 11 6 4 3 5 4 4 2 4;mso-font-charset:0;mso-generic-font-family:swiss;mso-font-pitch:variable;mso-font-signature:-520081665 -1073717157 41 0 66047 0}p.MsoNormal,div.MsoNormal{margin:0in;margin-bottom:.0001pt;font-size:12.0pt;font-family:"Times New Roman","serif"}h1{margin-top:0in;margin-right:0in;margin-bottom:6.0pt;margin-left:.3in;text-indent:-.3in;page-break-after:avoid;font-size:12.0pt;font-family:"Arial","sans-serif";color:maroon;font-weight:bold}p.MsoBodyText3{margin:0in;margin-bottom:.0001pt;text-align:center;font-size:20.0pt;font-family:"Arial","sans-serif";color:blue}a:link,span.MsoHyperlink{mso-style-unhide:no;color:blue;text-decoration:underline;text-underline:single}a:visited,span.MsoHyperlinkFollowed{mso-style-unhide:no;color:purple;text-decoration:underline;text-underline:single}p{margin-right:0in;margin-left:0in}@page WordSection1{size:8.5in 11.0in;margin:1.0in 1.0in 1.0in 1.0in;mso-header-margin:.5in;mso-footer-margin:.5in;mso-paper-source:0}div.WordSection1{page:WordSection1}@list l0{mso-list-id:142744453;mso-list-type:hybrid;mso-list-template-ids:1094760574 -882848452 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693}@list l0:level1{mso-level-number-format:bullet;mso-level-text:\2022;mso-level-tab-stop:.5in;mso-level-number-position:left;text-indent:-.25in;font-family:"Arial","sans-serif";mso-bidi-font-family:"Times New Roman"}@list l0:level2{mso-level-tab-stop:1.0in;mso-level-number-position:left;text-indent:-.25in}@list l0:level3{mso-level-tab-stop:1.5in;mso-level-number-position:left;text-indent:-.25in}@list l0:level4{mso-level-tab-stop:2.0in;mso-level-number-position:left;text-indent:-.25in}@list l0:level5{mso-level-tab-stop:2.5in;mso-level-number-position:left;text-indent:-.25in}@list l0:level6{mso-level-tab-stop:3.0in;mso-level-number-position:left;text-indent:-.25in}@list l0:level7{mso-level-tab-stop:3.5in;mso-level-number-position:left;text-indent:-.25in}@list l0:level8{mso-level-tab-stop:4.0in;mso-level-number-position:left;text-indent:-.25in}@list l0:level9{mso-level-tab-stop:4.5in;mso-level-number-position:left;text-indent:-.25in}@list l1{mso-list-id:310014832;mso-list-type:hybrid;mso-list-template-ids:-17380624 960003778 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715}@list l1:level1{mso-level-number-format:alpha-lower;mso-level-text:"\(%1\)";mso-level-tab-stop:.5in;mso-level-number-position:left;text-indent:-.25in;mso-ansi-font-size:10.0pt;color:windowtext;mso-ansi-font-weight:normal;mso-bidi-font-weight:normal;mso-ansi-font-style:normal;mso-bidi-font-style:normal}@list l1:level2{mso-level-tab-stop:1.0in;mso-level-number-position:left;text-indent:-.25in}@list l1:level3{mso-level-tab-stop:1.5in;mso-level-number-position:left;text-indent:-.25in}@list l1:level4{mso-level-tab-stop:2.0in;mso-level-number-position:left;text-indent:-.25in}@list l1:level5{mso-level-tab-stop:2.5in;mso-level-number-position:left;text-indent:-.25in}@list l1:level6{mso-level-tab-stop:3.0in;mso-level-number-position:left;text-indent:-.25in}@list l1:level7{mso-level-tab-stop:3.5in;mso-level-number-position:left;text-indent:-.25in}@list l1:level8{mso-level-tab-stop:4.0in;mso-level-number-position:left;text-indent:-.25in}@list l1:level9{mso-level-tab-stop:4.5in;mso-level-number-position:left;text-indent:-.25in}@list l2{mso-list-id:477495984;mso-list-type:hybrid;mso-list-template-ids:-1234915440 -882848452 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693}@list l2:level1{mso-level-number-format:bullet;mso-level-text:\2022;mso-level-tab-stop:.5in;mso-level-number-position:left;text-indent:-.25in;font-family:"Arial","sans-serif";mso-bidi-font-family:"Times New Roman"}@list l2:level2{mso-level-tab-stop:1.0in;mso-level-number-position:left;text-indent:-.25in}@list l2:level3{mso-level-tab-stop:1.5in;mso-level-number-position:left;text-indent:-.25in}@list l2:level4{mso-level-tab-stop:2.0in;mso-level-number-position:left;text-indent:-.25in}@list l2:level5{mso-level-tab-stop:2.5in;mso-level-number-position:left;text-indent:-.25in}@list l2:level6{mso-level-tab-stop:3.0in;mso-level-number-position:left;text-indent:-.25in}@list l2:level7{mso-level-tab-stop:3.5in;mso-level-number-position:left;text-indent:-.25in}@list l2:level8{mso-level-tab-stop:4.0in;mso-level-number-position:left;text-indent:-.25in}@list l2:level9{mso-level-tab-stop:4.5in;mso-level-number-position:left;text-indent:-.25in}@list l3{mso-list-id:1110474385;mso-list-template-ids:689730290}@list l3:level1{mso-level-style-link:"Heading 1";mso-level-text:%1;mso-level-tab-stop:.3in;mso-level-number-position:left;margin-left:.3in;text-indent:-.3in}@list l3:level2{mso-level-style-link:"Heading 2";mso-level-text:"%1\.%2";mso-level-tab-stop:.4in;mso-level-number-position:left;margin-left:.4in;text-indent:-.4in}@list l3:level3{mso-level-style-link:"Heading 3";mso-level-text:"%1\.%2\.%3";mso-level-tab-stop:.5in;mso-level-number-position:left;margin-left:.5in;text-indent:-.5in}@list l3:level4{mso-level-style-link:"Heading 4";mso-level-text:"%1\.%2\.%3\.%4";mso-level-tab-stop:.6in;mso-level-number-position:left;margin-left:.6in;text-indent:-.6in}@list l3:level5{mso-level-style-link:"Heading 5";mso-level-text:"%1\.%2\.%3\.%4\.%5";mso-level-tab-stop:.7in;mso-level-number-position:left;margin-left:.7in;text-indent:-.7in}@list l3:level6{mso-level-style-link:"Heading 6";mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";mso-level-tab-stop:.8in;mso-level-number-position:left;margin-left:.8in;text-indent:-.8in}@list l3:level7{mso-level-style-link:"Heading 7";mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";mso-level-tab-stop:.9in;mso-level-number-position:left;margin-left:.9in;text-indent:-.9in}@list l3:level8{mso-level-style-link:"Heading 8";mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";mso-level-tab-stop:1.0in;mso-level-number-position:left;margin-left:1.0in;text-indent:-1.0in}@list l3:level9{mso-level-style-link:"Heading 9";mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";mso-level-tab-stop:1.1in;mso-level-number-position:left;margin-left:1.1in;text-indent:-1.1in}@list l4{mso-list-id:1763647055;mso-list-type:hybrid;mso-list-template-ids:-17380624 960003778 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715}@list l4:level1{mso-level-number-format:alpha-lower;mso-level-text:"\(%1\)";mso-level-tab-stop:.5in;mso-level-number-position:left;text-indent:-.25in;mso-ansi-font-size:10.0pt;color:windowtext;mso-ansi-font-weight:normal;mso-bidi-font-weight:normal;mso-ansi-font-style:normal;mso-bidi-font-style:normal}@list l4:level2{mso-level-tab-stop:1.0in;mso-level-number-position:left;text-indent:-.25in}@list l4:level3{mso-level-tab-stop:1.5in;mso-level-number-position:left;text-indent:-.25in}@list l4:level4{mso-level-tab-stop:2.0in;mso-level-number-position:left;text-indent:-.25in}@list l4:level5{mso-level-tab-stop:2.5in;mso-level-number-position:left;text-indent:-.25in}@list l4:level6{mso-level-tab-stop:3.0in;mso-level-number-position:left;text-indent:-.25in}@list l4:level7{mso-level-tab-stop:3.5in;mso-level-number-position:left;text-indent:-.25in}@list l4:level8{mso-level-tab-stop:4.0in;mso-level-number-position:left;text-indent:-.25in}@list l4:level9{mso-level-tab-stop:4.5in;mso-level-number-position:left;text-indent:-.25in}--></style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1026"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+<link type=image/x-icon rel="shortcut icon" href="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><link rel=canonical href=http://users.ece.utexas.edu/~gerstl/ee382m_f18/labs/QEMU_SystemC_Tutorial.htm><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:;"></head>
+<body lang=EN-US link=blue vlink=purple style=tab-interval:40pt>
+<div class=WordSection1>
+<p class=MsoBodyText3><b><span style=font-size:18pt;color:windowtext>System-on-Chip
+(<span class=SpellE>SoC</span>) Design</span></b><span style=color:windowtext><o:p></o:p></span></p>
+<p class=MsoBodyText3><b><span style=font-size:12pt;color:windowtext>EE382M.20,
+<span class=GramE>Fall</span> 2018<o:p></o:p></span></b></p>
+<div class=MsoNormal align=center style=text-align:center><span style='font-size:8pt;font-family:"Tahoma","sans-serif"'>
+<hr size=2 width=100% align=center>
+</span></div>
+<p class=MsoBodyText3><b><span style=font-size:14pt;color:windowtext>QEMU/<span class=SpellE>SystemC</span> Tutorial<o:p></o:p></span></b></p>
+<p class=MsoNormal><span style='font-size:11pt;font-family:"Tahoma","sans-serif";color:maroon'>&nbsp;</span><span style=color:maroon><o:p></o:p></span></p>
+<p class=MsoNormal><b><span style='font-family:"Arial","sans-serif";color:maroon'>Notes:<o:p></o:p></span></b></p>
+<p class=MsoNormal style=margin-left:.5in;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>•<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>This
+is a tutorial related to the class project.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>•<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Please
+use the<span style=color:blue> </span>discussion board on Piazza for Q&amp;A.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>•<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Please
+check relevant web pages.<b><span style=color:blue>&nbsp;</span></b><o:p></o:p></span></p>
+<p class=MsoNormal><span style='font-size:10pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+<div class=MsoNormal align=center style=text-align:center><span style='font-size:8pt;font-family:"Arial","sans-serif"'>
+<hr size=2 width=100% align=center>
+</span></div>
+<h1 style="mso-list:l3 level1 lfo2"><!--[if !supportLists]--><span style=mso-bidi-font-size:10pt;mso-fareast-font-family:Arial><span style=mso-list:Ignore>1<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span>Overview<span style=mso-bidi-font-size:10pt><span style=mso-spacerun:yes>&nbsp; </span><o:p></o:p></span></h1>
+<p class=MsoNormal><span style='font-size:10pt;font-family:"Arial","sans-serif"'>The
+goal of this tutorial is to:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in;text-align:justify;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>•<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Give
+an introduction to the QEMU/<span class=SpellE>SystemC</span> virtual platform
+simulation environment.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:1.25in;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>&nbsp;<o:p></o:p></span></p>
+<p class=MsoNormal style=text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>This tutorial includes
+the following:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in;text-align:justify;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>•<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>A
+simulation model of the <span class=SpellE>Zynq</span> development/prototyping
+platform.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in;text-align:justify;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>•<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>A
+<span class=SpellE>SystemC</span> model of a simple hardware module mapped to
+the <span class=SpellE>Zynq's</span> FPGA fabric.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in;text-align:justify;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>•<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>An
+application example running on the ARM that calls and interfaces with the
+hardware.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.25in;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+<div class=MsoNormal align=center style=text-align:center><span style='font-size:8pt;font-family:"Arial","sans-serif"'>
+<hr size=2 width=100% align=center>
+</span></div>
+<h1 style="mso-list:l3 level1 lfo2"><!--[if !supportLists]--><span style=mso-fareast-font-family:Arial><span style=mso-list:Ignore>2<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>QEMU/<span class=SpellE>SystemC</span> Environment</h1>
+<p class=MsoNormal style=text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>We use the free QEMU
+simulation model provided by Xilinx for their <span class=SpellE>Zynq</span>
+platform for virtual prototyping of our <span class=SpellE>SoC.</span> More information
+about Xilinx's QEMU setup is available through their <a href=http://www.wiki.xilinx.com/QEMU>wiki page</a> and <a href=http://forums.xilinx.com/t5/Embedded-Linux/bd-p/ELINUX>support forums</a>.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>We
+will be using a special setup of QEMU provided by Xilinx that integrates with a
+<span class=SpellE>SystemC</span> co-simulation environment. For QEMU/<span class=SpellE>SystemC</span> co-simulation, a separate <span class=SpellE>SystemC</span>
+simulator instance is launched in parallel to the QEMU simulation, where the
+two simulators communicate through special co-simulation ports that model the
+available bus and other interfaces between the <span class=SpellE>Zynq’s</span>
+programmable ARM subsystem and the FPGA fabric. On the <span class=SpellE>SystemC</span>
+side, these interfaces are represented as standard TLM2.0 bus models and
+sockets that other <span class=SpellE>SystemC</span> modules representing
+blocks in the programmable logic can be connected and interfaced to in order to
+construct a complete <span class=SpellE>SoC</span> virtual platform simulation.
+More information about the QEMU/<span class=SpellE>SystemC</span> integration
+from Xilinx is available in <a href=http://www.wiki.xilinx.com/QEMU%20SystemC%20and%20TLM%20CoSimulation>their
+wiki page</a>.<o:p></o:p></span></p>
+<p class=MsoNormal style=text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+<div class=MsoNormal align=center style=text-align:center><span style='font-size:8pt;font-family:"Arial","sans-serif"'>
+<hr size=2 width=100% align=center>
+</span></div>
+<h1 style="mso-list:l3 level1 lfo2"><!--[if !supportLists]--><span style=mso-fareast-font-family:Arial><span style=mso-list:Ignore>3<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>QEMU/<span class=SpellE>SystemC</span> Example and Tutorial</h1>
+<p class=MsoNormal style=text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>The following example
+demonstrates a QEMU/<span class=SpellE>SystemC</span> simulation of a <span class=SpellE>Zynq</span> platform that includes a simple hardware module
+implemented in the FPGA fabric, where the application running on the ARM
+accesses the external hardware through memory-mapped I/O or a Linux kernel
+module. <o:p></o:p></span></p>
+<p class=MsoNormal style=text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'><span style=mso-spacerun:yes>&nbsp;</span><b><span style=color:maroon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></b><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.25in;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>(a)<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Environment
+Setup<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify;text-indent:-.7pt><span style='font-size:10pt;font-family:"Arial","sans-serif"'>We
+will be using the QEMU simulator that comes with the <span class=SpellE>PetaLinux</span>
+tools provided by Xilinx. Log into the ECE-LRC servers (see <a href=http://www.ece.utexas.edu/it/remote-linux>instructions</a>) and setup the
+<span class=SpellE>PetaLinux</span> environment:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% module load <span class=SpellE>xilinx</span>/2017.4<br>
+% source /usr/local/packages/xilinx_2017.4/petalinux/2017.4/settings.[c]sh /<span class=SpellE>usr</span>/local/packages/xilinx_2017.4/<span class=SpellE>petalinux</span>/2017.4<br>
+% <span class=SpellE>umask</span> 022<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify;text-indent:-.7pt><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Next,
+either work with an existing or create a new <span class=SpellE>PetaLinux</span>
+project: <o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>petalinux</span>-create -t
+project –n Lab2 -s
+/home/projects/gerstl/ee382m/avnet-digilent-zedboard-v2017.4-final.bsp<br>
+% cd Lab2<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify;text-indent:-.7pt><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Note
+that <span class=SpellE>PetaLinux</span> creates a temporary directory under </span><span style='font-size:10pt;font-family:"Courier New"'>/<span class=SpellE>tmp</span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'> to work with. Since </span><span style='font-size:10pt;font-family:"Courier New"'>/<span class=SpellE>tmp</span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'> is not shared across
+machines, you need to stay on the machine that you created the original project
+on. If you want to switch machines, you need to create a new project (please
+clean up any leftover old project directories under </span><span style='font-size:10pt;font-family:"Courier New"'>/<span class=SpellE>tmp</span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'> then – <span class=SpellE>PetaLinux</span> uses a lot of temporary disk space and </span><span style='font-size:10pt;font-family:"Courier New"'>/<span class=SpellE>tmp</span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'> fills up pretty fast
+otherwise).</span><span style='font-size:10pt;font-family:"Courier New"'> </span><span style='font-size:10pt;font-family:"Arial","sans-serif"'><span style=mso-spacerun:yes>&nbsp;</span><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify;text-indent:-.7pt><span style='font-size:10pt;font-family:"Arial","sans-serif"'>At
+this point, you should be able to boot the pre-built image that comes with <span class=SpellE>PetaLinux</span> in their QEMU:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>petalinux</span>-boot –-<span class=SpellE>qemu</span> –-prebuilt 3<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>You should then see
+Linux booting in the terminal. At the prompt, login as 'root' (password 'root')
+and you will have access to a bare-bone, minimal Linux installation (<span class=SpellE>busybox</span>) running on the emulated ARM platform. Note that to
+end the simulation, you will have to terminate the QEMU simulation using Ctrl-A
+X (Ctrl-C will not work).<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.25in;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal style=margin-left:.25in;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>(b)<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Linux
+Image<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify;text-indent:-.7pt><span style='font-size:10pt;font-family:"Arial","sans-serif"'>The
+pre-built <span class=SpellE>PetaLinux</span> image boots into Linux using a
+RAM disk as root filesystem, where any modifications will not be permanent and
+space is limited. Furthermore, we need to be able to customize the image and
+optionally boot into the same Ubuntu installation that is on the physical
+boards. For that, we need to configure <span class=SpellE>PetaLinux</span> to
+boot from an SD card image instead:<span style=mso-spacerun:yes>&nbsp;&nbsp;
+</span><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>petalinux-config</span><br>
+<span style=mso-spacerun:yes>&nbsp; </span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Select</span><span style='font-size:10pt;font-family:"Courier New"'> Image Packaging Configuration-&gt;Root
+filesystem type-&gt;SD Card<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Unfortunately, the
+QEMU installation that comes with <span class=SpellE>PetaLinux</span> does not
+fully emulate the SD card hardware, so we need to patch the Linux kernel to
+bypass some of the hardware checks:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>cp</span> /home/projects/<span class=SpellE>gerstl</span>/ee382m/<span class=SpellE>linux</span>-<span class=SpellE>xlnx</span>-QEMU-<span class=SpellE>SD.patch</span>
+project-spec/meta-user/recipes-kernel/<span class=SpellE>linux</span>/<span class=SpellE>linux-xlnx</span><br>
+% <span class=GramE>vi</span>
+project-spec/meta-user/recipes-kernel/linux/linux-xlnx_%.bbappend<br>
+<span style=mso-spacerun:yes>&nbsp; </span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Replace</span><span style='font-size:10pt;font-family:"Courier New"'> SRC_URI += "file://bsp.cfg"<br>
+<span style=mso-spacerun:yes>&nbsp; </span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>with</span><span style='font-size:10pt;font-family:"Courier New"'><span style=mso-spacerun:yes>&nbsp;&nbsp;&nbsp; </span>SRC_URI +=
+"file://bsp.cfg file://linux-xlnx-QEMU-SD.patch"<br>
+% <span class=SpellE>petalinux</span>-build –c kernel<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>With this, you can
+use a pre-built SD card image that we created to boot into a minimal <span class=SpellE>busybox</span> Linux installation that includes everything needed
+to run YOLO/<span class=SpellE>Darknet</span> for Lab 2:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>cp</span> /home/projects/<span class=SpellE>gerstl</span>/ee382m/images/zed_EE382M_busybox_2017.img images/<span class=SpellE>linux</span><br>
+% <span class=SpellE>petalinux</span>-boot --<span class=SpellE>qemu</span>
+--kernel --<span class=SpellE>qemu-args</span> "-drive
+file=images/linux/zed_EE382M_busybox_2017.img,if=sd,format=raw,index=0 -boot
+mode=5"<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>You can optionally
+also create your own customized Linux image. If you do, make sure to include
+the necessary libraries (<span class=SpellE>libstdc</span>++) needed to run
+YOLO/<span class=SpellE>Darknet</span>: <o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>petalinux-config</span>
+–c <span class=SpellE>rootfs</span><br>
+<span style=mso-spacerun:yes>&nbsp; </span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Select</span><span style='font-size:10pt;font-family:"Courier New"'> Filesystem Package -&gt; <span class=SpellE>misc</span>
+-&gt; <span class=SpellE>gcc</span>-runtime -&gt; <span class=SpellE>libstdc</span>++<br>
+<span style=mso-spacerun:yes>&nbsp; </span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Select</span><span style='font-size:10pt;font-family:"Courier New"'> Filesystem Package -&gt; <span class=SpellE>misc</span>
+-&gt; <span class=SpellE>gdb</span> -&gt; <span class=SpellE>gdbserver</span><br>
+<span style=mso-spacerun:yes>&nbsp; </span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Select</span><span style='font-size:10pt;font-family:"Courier New"'> apps -&gt; <span class=SpellE>peekpoke</span><br>
+</span><span style='font-size:10pt;font-family:"Arial","sans-serif"'><span style=mso-spacerun:yes>&nbsp;&nbsp;&nbsp; </span>Select other optional
+packages as desired…<br>
+</span><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>petalinux</span>-build –c <span class=SpellE>rootfs</span><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Create the SD card
+image containing two partitions (for /boot and the root filesystem) and copy
+the files on there and boot the image:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>guestfish</span> -N
+bootroot:vfat:ext4:200M -m /dev/sda1 upload images/<span class=SpellE>linux</span>/<span class=SpellE>zImage</span> /<span class=SpellE>zImage</span> : upload images/<span class=SpellE>linux</span>/<span class=SpellE>vmlinux</span> /<span class=SpellE>vmlinux</span> : upload images/<span class=SpellE>linux</span>/<span class=SpellE>system.dtb</span> /<span class=SpellE>system.dtb</span> : exit<br>
+% <span class=SpellE>guestfish</span> -a test1.img run : upload images/<span class=SpellE>linux</span>/rootfs.ext4 /dev/sda2<br>
+% <span class=SpellE>guestfish</span> -a test1.img run : e2fsck /dev/sda2 <span class=SpellE>correct:true</span><br>
+% <span class=SpellE>guestfish</span> -a test1.img run : resize2fs /dev/sda2<br>
+% mv test1.img images/<span class=SpellE>linux</span>/zed_EE382M_busybox_2017.img<br>
+% <span class=SpellE>petalinux</span>-boot --<span class=SpellE>qemu</span>
+--kernel --<span class=SpellE>qemu-args</span> "-drive
+file=images/linux/zed_EE382M_busybox_2017.img,if=sd,format=raw,index=0 -boot
+mode=5"<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Alternatively, you
+can boot the standard Ubuntu image that is running on your physical boards. You
+will have a full Linux environment, but boot times will be much slower. For
+Ubuntu to work, we first need to re-configure the kernel to include the
+required <span class=SpellE>SquashFS</span> compressed file system:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>cp</span> /home/projects/<span class=SpellE>gerstl</span>/ee382m/<span class=SpellE>linux-xlnx-ubuntu.cfg</span>
+project-spec/meta-user/recipes-kernel/<span class=SpellE>linux</span>/<span class=SpellE>linux-xlnx</span><br>
+% <span class=GramE>vi</span>
+project-spec/meta-user/recipes-kernel/linux/linux-xlnx_%.bbappend<br>
+<span style=mso-spacerun:yes>&nbsp; </span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Replace</span><span style='font-size:10pt;font-family:"Courier New"'> SRC_URI += "file://bsp.cfg
+file://linux-xlnx-QEMU-SD.patch"<br>
+<span style=mso-spacerun:yes>&nbsp; </span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>with</span><span style='font-size:10pt;font-family:"Courier New"'> SRC_URI += "file://bsp.cfg
+file://linux-xlnx-ubuntu.cfg file://linux-xlnx-QEMU-SD.patch"<br>
+% <span class=SpellE>petalinux</span>-build –c kernel<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Then, copy the Ubuntu image and boot it: <o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-31.5pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>cp</span>
+/home/projects/gerstl/ee382m/images/zed_16G_UBUNTU.18.04_MASTER_CLASS.img
+images/<span class=SpellE>linux</span><br>
+% <span class=SpellE>petalinux</span>-boot --<span class=SpellE>qemu</span>
+--kernel --<span class=SpellE>qemu-args</span> "-drive
+file=images/linux/zed_16G_UBUNTU.18.04_MASTER_CLASS.img,if=sd,format=raw,index=0
+-boot mode=5 -<span class=SpellE>nographic</span>"<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.25in;text-align:justify><span style='font-size:10pt;font-family:"Courier New"'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal style=margin-left:.25in;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>(c)<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><span class=SpellE><span style='font-size:10pt;font-family:"Arial","sans-serif"'>SystemC</span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'> Co-Simulation<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>As described by
+Xilinx for their <a href=http://www.wiki.xilinx.com/QEMU%20SystemC%20and%20TLM%20CoSimulation>QEMU/<span class=SpellE>SystemC</span> co-simulation setup</a>, to make the external <span class=SpellE>SystemC</span> interfaces accessible in the QEMU simulation, we
+first need to update the Linux device tree:<span style=mso-spacerun:yes>&nbsp; </span><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>wget</span>
+https://raw.githubusercontent.com/Xilinx/qemu-devicetrees/master/zynq-pl-remoteport.dtsi
+-O
+components/plnx_workspace/device-tree/device-tree-generation/zynq-pl-remoteport.dtsi<br>
+% <span class=GramE>vi</span>
+project-spec/meta-user/recipes-bsp/device-tree/files/system-user.dtsi<br>
+<span style=mso-spacerun:yes>&nbsp; </span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Add</span><span style='font-size:10pt;font-family:"Courier New"'> /include/ "<span class=SpellE>zynq-pl-remoteport.dtsi</span>"</span><span style='font-size:10pt;font-family:"Arial","sans-serif"'> as the last, i.e. below
+all other includes</span><span style='font-size:10pt;font-family:"Courier New"'><br>
+% <span class=SpellE>petalinux</span>-build -c device-tree<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Then launch the QEMU
+simulation with extra co-simulation arguments including a pointer to a
+directory used for exchange of information between the two simulators. You can
+again boot either the <span class=SpellE>busybox</span> or Ubuntu image. Using
+the <span class=SpellE>busybox</span> image:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE><span class=GramE>mkdir</span></span><span class=GramE> ..</span>/<span class=SpellE>qemu-tmp</span><br>
+% <span class=SpellE>petalinux</span>-boot --<span class=SpellE>qemu</span>
+--kernel --<span class=SpellE>qemu-args</span> "-drive
+file=images/linux/zed_EE382M_busybox_2017.img,if=sd,format=raw,index=0 -boot
+mode=5 -machine-<span class=GramE>path ..</span>/<span class=SpellE>qemu-tmp</span>
+-<span class=SpellE>icount</span> 1 -sync-quantum 10000"<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>The <span class=SpellE>icount</span> and sync quantum parameters allow you to play with
+the tradeoff between simulation speed and accuracy.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>QEMU will now start
+but immediately hang waiting for a connection from the <span class=SpellE>SystemC</span>
+simulator. To setup the <span class=SpellE>SystemC</span> simulation, we need
+to include a special <a href=https://github.com/Xilinx/libsystemctlm-soc>co-simulation
+library provided by Xilinx</a>. For this example and tutorial, we will be using
+a small <span class=SpellE>SystemC</span> demo platform provided by Xilinx that
+is built on top of this library. Download and compile the Xilinx <span class=SpellE>SystemC</span> co-simulation demo: <o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=GramE>cd ..</span><br>
+% <span class=SpellE>git</span> clone <a href=https://github.com/Xilinx/systemctlm-cosim-demo.git>https://github.com/Xilinx/systemctlm-cosim-demo.git</a><br>
+% cd <span class=SpellE>systemctlm</span>-<span class=SpellE>cosim</span>-demo<br>
+% <span class=SpellE>git</span> submodule update --<span class=SpellE>init</span>
+<span class=SpellE>libsystemctlm-soc</span><br>
+% vi <span class=SpellE>Makefile</span><br>
+<span style=mso-spacerun:yes>&nbsp; </span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Change </span><span class=GramE><span style='font-size:10pt;font-family:"Courier New"'>SYSTEMC ?</span></span><span style='font-size:10pt;font-family:"Courier New"'>= /<span class=SpellE>usr</span>/local/systemc-2.3.1/<br>
+<span style=mso-spacerun:yes>&nbsp; </span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>To<span style=mso-spacerun:yes>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:10pt;font-family:"Courier New"'>SYSTEMC
+?= /<span class=SpellE>usr</span>/local/packages/systemc-2.3.1/<br>
+% make<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Then, launch the <span class=SpellE>SystemC</span> side of the co-simulation:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>env</span> <span class=GramE>LD_LIBRARY_PATH=/<span class=SpellE>usr</span>/local/packages/systemc-2.3.1/lib-linux64/ ./</span><span class=SpellE>zynq_demo</span> <span class=SpellE>unix</span>:../<span class=SpellE>qemu-tmp</span>/qemu-rport-_cosim@0 10000<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>The <span class=SpellE>SystemC</span> simulator will start and in turn wait to try to
+establish the connection to the QEMU simulator. Once the connection is made,
+both simulators will proceed, and the QEMU side should continue to boot Linux
+as normal (but slower). Note that the last argument is the sync quantum, which
+should match the value passed to QEMU.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>This <span class=SpellE>SystemC</span> demo example includes a simple debug device (see </span><span class=SpellE><span style='font-size:10pt;font-family:"Courier New"'>debugdev.h</span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>/</span><span style='font-size:10pt;font-family:"Courier New"'>.cc</span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>) attached to the
+main system bus (see the top-level </span><span style='font-size:10pt;font-family:"Courier New"'>zync_demo.cc</span><span style='font-size:10pt;font-family:"Arial","sans-serif"'> <span class=SpellE>SystemC</span> module,
+which stitches everything together). The debug device is accessible on the
+following bus addresses:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:-9pt;margin-left:.5in;margin-bottom:.0001pt><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Courier New"'>0x40000000</span><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Arial","sans-serif"'>
+– Read <span class=SpellE>SystemC</span> time (in seconds) / Write debug
+message and measure time<br>
+</span><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Courier New"'>0x40000004</span><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Arial","sans-serif"'> – Write output ASCII character
+to terminal<br>
+</span><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Courier New"'>0x40000008</span><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Arial","sans-serif"'> – Write to stop the simulation
+via an </span><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Courier New"'>exit(1)</span><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Arial","sans-serif"'> call<br>
+</span><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Courier New"'>0x4000000c</span><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Arial","sans-serif"'> – Read/Write status of
+interrupt line (high/low, i.e. 1/0)<br>
+</span><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Courier New"'>0x40000010</span><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Arial","sans-serif"'> – Read <span class=SpellE>SystemC</span>
+</span><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Courier New"'>clock()</span><span style='font-size:10pt;mso-bidi-font-size:12pt;font-family:"Arial","sans-serif"'> count</span><span style='font-size:8pt;mso-bidi-font-size:10pt;font-family:"Arial","sans-serif"'><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>You can use the </span><span style='font-size:10pt;font-family:"Courier New"'>peek</span><span style='font-size:10pt;font-family:"Arial","sans-serif"'> and </span><span style='font-size:10pt;font-family:"Courier New"'>poke</span><span style='font-size:10pt;font-family:"Arial","sans-serif"'> commands from within
+the <span class=SpellE>busybox</span> Linux shell to test reading/writing
+from/to these addresses.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.25in;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal style=margin-left:.25in;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>(d)<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Application
+software<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>We demonstrate
+application development and HW/SW interfacing using a simple software
+application running on the virtual platform that interfaces with the debug
+hardware device modeled in <span class=SpellE>SystemC</span>. To compile and
+link applications for the board, we need to use the ARM cross-compiler tool
+chain provided by Xilinx together with their overall tool environment, i.e.
+first make sure that the <span class=SpellE>PetaLinux</span> environment is
+setup correctly (see step (a) above):<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% module load <span class=SpellE>xilinx</span>/2017.4<br>
+% source /usr/local/packages/xilinx_2017.4/petalinux/2017.4/settings.[c]sh /<span class=SpellE>usr</span>/local/packages/xilinx_2017.4/<span class=SpellE>petalinux</span>/2017.4<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Then unpack the
+application example (<a href=http://www.ece.utexas.edu/~gerstl/ee382m_f18/labs/lab2/QEMU_SystemC_app.tar.gz>QEMU_SystemC_app.tar.gz</a>)
+and cross-compile the executable (</span><span style='font-size:10pt;font-family:"Courier New"'>example</span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>) for the ARM using the provided <span class=SpellE>Makefile</span>:</span><span style='font-size:10pt;font-family:"Courier New"'><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% tar <span class=SpellE>xzf</span> /home/projects/<span class=SpellE>gerstl</span>/ee382m/QEMU_SystemC_app.tar.gz<br>
+% cd application<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.25in><span style='font-size:10pt;font-family:"Courier New"'>% make <o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Next, we need to copy
+the cross-compiled application into the simulated platform. The virtual
+platform simulator includes emulated network access, so the easiest way to do
+this is by copying the executable into the simulated platform over the network.
+From within the simulation execute (you can use either </span><span class=SpellE><span class=GramE><span style='font-size:10pt;font-family:"Courier New"'>scp</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'> or </span><span class=SpellE><span style='font-size:10pt;font-family:"Courier New"'>wget</span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>):<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'># <span class=SpellE><span class=GramE>scp</span></span>
+<i style=mso-bidi-font-style:normal>&lt;user&gt;</i>@<i style=mso-bidi-font-style:normal>&lt;server&gt;</i>.ece.utexas.edu:<i style=mso-bidi-font-style:normal>&lt;path&gt;</i>/application/example
+.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Finally, run the
+application example from there:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt><span class=GramE><span style='font-size:10pt;font-family:"Courier New"'># ./</span></span><span style='font-size:10pt;font-family:"Courier New"'>example [<i style=mso-bidi-font-style:normal>&lt;<span class=SpellE>val</span>&gt;</i>]<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>The example (see </span><span class=SpellE><span style='font-size:10pt;font-family:"Courier New"'>example.c</span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>) demonstrates use of
+memory-mapped I/O under Linux to access the debug device registers and either
+read the <span class=SpellE>SystemC</span> time or write to the debug port
+similar to the </span><span style='font-size:10pt;font-family:"Courier New"'>peek</span><span style='font-size:10pt;font-family:"Arial","sans-serif"'> and </span><span style='font-size:10pt;font-family:"Courier New"'>poke</span><span style='font-size:10pt;font-family:"Arial","sans-serif"'> commands above. See
+the included <span class=SpellE>README.application</span> for more details.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.25in;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal style=margin-left:.25in;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>(e)<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Interrupt-driven
+application using a Linux kernel module<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>The application
+package also includes a version of the example code that uses a kernel module (</span><span class=SpellE><span style='font-size:10pt;font-family:"Courier New"'>fpga_drv.</span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>c</span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>) to implement an
+interrupt-based device driver for all accesses to the FPGA hardware. For the
+kernel module to work, we first need to tell the Linux kernel about the
+existence of the external hardware device. Go into your <span class=SpellE>PetaLinux</span>
+project directory from steps (a)-(c), and either copy the
+‘components/plnx_workspace/device-tree/device-tree-generation/zynq-fpga.dtsi’
+included with the application package into your project directory, or just
+unpack the application package right into the <span class=SpellE>PetaLinux</span>
+project tree:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% cd Lab2<br>
+% tar <span class=SpellE>xzf</span> /home/projects/<span class=SpellE>gerstl</span>/ee382m/zynq-fpga-example.tar.gz
+--strip-components=1<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Update the Linux device tree to include the
+additional ‘<span class=SpellE>fpga</span>’ device:</span><span style='font-size:10pt;font-family:"Courier New"'><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=GramE>vi</span> project-spec/meta-user/recipes-bsp/device-tree/files/system-user.dtsi<br>
+<span style=mso-spacerun:yes>&nbsp; </span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Add</span><span style='font-size:10pt;font-family:"Courier New"'> /include/ "<span class=SpellE>zynq-fpga.dtsi</span>"<br>
+% <span class=SpellE>petalinux</span>-build -c device-tree<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Finally, (re)start
+the <span class=SpellE>QEMU+SystemC</span> simulation of our (virtual)
+platform.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Then cross-compile
+the executable (</span><span style='font-size:10pt;font-family:"Courier New"'>example</span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>) and the kernel
+module (</span><span class=SpellE><span style='font-size:10pt;font-family:"Courier New"'>fpga_drv.ko</span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>) of the interrupt-driven application for the
+ARM:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% cd <span class=SpellE>application.irq</span><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.25in><span style='font-size:10pt;font-family:"Courier New"'>% make <o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Copy both files into
+the virtual platform as shown above. From within the simulation, load the
+kernel module, check that the device driver is properly installed and
+registered for GIC interrupt 61, and look at the output reported by the driver
+under its /proc/<span class=SpellE>fpga</span> entry:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'># <span class=SpellE><span class=GramE>insmod</span></span>
+<span class=SpellE>fpga_drv.ko</span><br>
+# <span class=SpellE>lsmod</span><br>
+# cat /proc/interrupts<br>
+# cat /proc/<span class=SpellE>fpga</span><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Finally, run the
+application example:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify;text-indent:22pt><span class=GramE><span style='font-size:10pt;font-family:"Courier New"'># ./</span></span><span style='font-size:10pt;font-family:"Courier New"'>example [<i style=mso-bidi-font-style:normal>&lt;<span class=SpellE>val</span>&gt;</i>]</span><span style='font-size:10pt;font-family:"Arial","sans-serif"'><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.25in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>In addition to the
+output from before, you should see messages from the '<span class=SpellE>fpga_drv</span>'
+about I/O accesses, including handling of incoming interrupts for
+synchronization with the hardware. <o:p></o:p></span></p>
+<p class=MsoNormal style=text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+<div class=MsoNormal align=center style=text-align:center><span style='font-size:8pt;font-family:"Arial","sans-serif"'>
+<hr size=2 width=100% align=center>
+</span></div>
+<h1 style="mso-list:l3 level1 lfo2"><!--[if !supportLists]--><span style=mso-fareast-font-family:Arial><span style=mso-list:Ignore>4<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>QEMU/<span class=SpellE>SystemC</span> Debugging</h1>
+<p class=MsoNormal style=text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>In the following, we
+describe various options that are available for debugging both the <span class=SpellE>SystemC</span> side of the virtual platform as well as the
+application running on the simulated ARM. <o:p></o:p></span></p>
+<p class=MsoNormal><span style='font-size:10pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>(a)<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><span class=SpellE><span style='font-size:10pt;font-family:"Arial","sans-serif"'>SystemC</span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'> debugging<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in><span style='font-size:10pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>By
+default, the <span class=SpellE>SystemC</span>/C++ model of the virtual
+platform is already compiled with debug information (-g option) enabled.
+However, you may want to also disable compile optimizations (remove the
+–O2 switch in the <span class=SpellE>Makefile</span> and recompile). The
+‘<span class=SpellE>zynq_demo</span>’ executable can then be
+executed in your favorite debugger, such as GDB:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% LD_LIBRARY_PATH=/<span class=SpellE>usr</span>/local/packages/systemc-2.3.1/lib-linux64/<br>
+<span style=mso-spacerun:yes>&nbsp;&nbsp;&nbsp; </span><span class=SpellE>gdb</span>
+<span class=SpellE>zynq_demo</span><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Or, if you prefer a graphical
+debugging environment (using the DDD graphical GDB frontend):<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% LD_LIBRARY_PATH=/<span class=SpellE>usr</span>/local/packages/systemc-2.3.1/lib-linux64/<br>
+<span style=mso-spacerun:yes>&nbsp;&nbsp;&nbsp; </span><span class=SpellE>ddd</span>
+<span class=SpellE>zynq_demo</span><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Finally, inside the
+debugger, launch the ‘<span class=SpellE>zync_demo</span>’ program
+with the correct command line arguments:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:63.35pt;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Courier New"'>(<span class=SpellE><span class=GramE>gdb</span></span>) run <span class=SpellE>unix</span>:../<span class=SpellE>qemu-tmp</span>/qemu-rport-_cosim@0 10000<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>From there on, you
+can debug the virtual platform’s <span class=SpellE>SystemC</span>/C++
+executable using standard means, e.g., Ctrl-C will interrupt the running
+program and bring you back to the (<span class=SpellE>gdb</span>) prompt.<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:63.35pt;text-align:justify><span style='font-size:10pt;font-family:"Courier New"'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>(b)<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Application
+debugging<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in><span style='font-size:10pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>The
+Linux installation running on our platform <a href=http://www.wiki.xilinx.com/Zynq+App+Debug>includes a GDB server</a>,
+which can be used to attach an external GDB instance and remotely debug an application
+running on top of it. In order to do that, first make sure that your
+application is compiled with debug information (-g switch enabled). In case of
+the given application example using the provided <span class=SpellE>Makefiles</span>:</span><span style='font-size:10pt;font-family:"Courier New"'><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% cd <span class=GramE>application[</span>.<span class=SpellE>irq</span>]<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in><span style='font-size:10pt;font-family:"Courier New"'>% <span class=GramE>make</span> debug<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Then, <span class=GramE>(re)start</span> the virtual platform and forward the debug port in
+the platform to any available port on the local simulation host: <o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=GramE>cd ..</span><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>petalinux</span>-boot --<span class=SpellE>qemu</span> --kernel --<span class=SpellE>qemu-args</span>
+"... <br>
+<span style=mso-spacerun:yes>&nbsp;&nbsp;&nbsp; </span>–<span class=SpellE>netdev</span> <span class=SpellE>user<span class=GramE>,id</span></span>=<span class=SpellE>gdbsrv,hostfwd</span>=<span class=SpellE>tcp</span>::<i style=mso-bidi-font-style:normal>&lt;port&gt;-</i>:1234"<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Copy your application
+into the platform and start it there under the control of the GDB server: <o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:63pt;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'># <span class=SpellE><span class=GramE>gdbserver</span></span>
+HOST:1234 example<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Finally, open another
+shell on the host and launch an ARM cross-debugger instance pointing it to the
+same application binary (with compiled-in debug information): <o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% arm-<span class=SpellE>linux</span>-<span class=SpellE>gnueabihf-gdb</span> <span class=GramE>application[</span>.<span class=SpellE>irq</span>]/example<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Inside GDB, connect
+to the (forwarded) remote server and run the application under control of the
+cross-debugger: <o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:63pt;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>(<span class=SpellE><span class=GramE>gdb</span></span>)
+target remote localhost<i style=mso-bidi-font-style:normal>:&lt;port&gt;</i><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:63.35pt><span style='font-size:10pt;font-family:"Courier New"'>(<span class=SpellE><span class=GramE>gdb</span></span>)
+b main<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:63.35pt><span style='font-size:10pt;font-family:"Courier New"'>(<span class=SpellE><span class=GramE>gdb</span></span>)
+c<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:63.35pt><span style='font-size:10pt;font-family:"Courier New"'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in;text-indent:-.25in><!--[if !supportLists]--><span style='font-size:10pt;font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span style=mso-list:Ignore>(c)<span style='font:7pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Kernel
+debugging<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in><span style='font-size:10pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>If
+you want to venture into debugging the Linux kernel, including any applications
+it launches, QEMU supports the capability to attach a remote debugger to the
+simulator itself:<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% <span class=SpellE>petalinux</span>-boot --<span class=SpellE>qemu</span> --kernel --<span class=SpellE>qemu-args</span>
+"... –<span class=SpellE>gdb</span> <span class=SpellE><span class=GramE>tcp</span></span><span class=GramE>:</span>:<i style=mso-bidi-font-style:normal>&lt;port&gt;</i> -S"<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Note that with the
+–S option, QEMU will not boot any code until a remote debugger is
+attached. If you want to be able to use source information, make sure whatever
+code you want to debug is compiled with –g and point the cross-debugger
+to it, e.g.: <o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>% arm-<span class=SpellE>linux</span>-<span class=SpellE>gnueabihf-gdb</span> <span class=GramE>application[</span>.<span class=SpellE>irq</span>]/example<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>Finally, connect the
+cross-debugger to QEMU and start execution: <o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:63pt;margin-bottom:.0001pt><span style='font-size:10pt;font-family:"Courier New"'>(<span class=SpellE><span class=GramE>gdb</span></span>)
+target remote localhost<i style=mso-bidi-font-style:normal>:&lt;port&gt;</i><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:63.35pt><span style='font-size:10pt;font-family:"Courier New"'>(<span class=SpellE><span class=GramE>gdb</span></span>)
+b main<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:63.35pt><span style='font-size:10pt;font-family:"Courier New"'>(<span class=SpellE><span class=GramE>gdb</span></span>)
+c<o:p></o:p></span></p>
+<p class=MsoNormal style=margin-top:6pt;margin-right:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:justify><span style='font-size:10pt;font-family:"Arial","sans-serif"'>You can then use the
+virtual platform normally, while being able to control the emulated code from
+the remote debugger (e.g. Ctrl-C will stop the simulated ARM and bring it back
+under GDB control). Setting a breakpoint as shown above will trigger when the
+application you pointed the debugger to is launched inside the platform </span><span style='font-size:10pt;font-family:"Courier New"'>(<span class=GramE># ./</span>example</span><span style='font-size:10pt;font-family:"Arial","sans-serif"'>) and it hits the
+given source line.<span style=mso-spacerun:yes>&nbsp;&nbsp; </span><o:p></o:p></span></p>
+<p class=MsoNormal style=margin-left:.5in;text-align:justify><span style='font-size:10pt;font-family:"Courier New"'><o:p>&nbsp;</o:p></span></p>
+</div>
