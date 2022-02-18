@@ -2,7 +2,7 @@
 
 https://player.vimeo.com/video/570963981?title=0&amp;byline=0&amp;portrait=0 
 
-
+https://github.com/google/android-cuttlefish/blob/main/BUILDING.md#adb
 ## ADB
 
 When the adb client is running outside the container either remotely or locally (on the docker host), the cuttlefish inside the container
